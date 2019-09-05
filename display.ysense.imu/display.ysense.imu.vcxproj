@@ -152,12 +152,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="display.ysense.imu.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\imu.h" />
     <ClInclude Include="include\utility.h" />
     <ClInclude Include="include\yesense.imu.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\display.ysense.imu.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
