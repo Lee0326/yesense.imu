@@ -24,6 +24,7 @@
     <ClInclude Include="include\buffered_async_serial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\analysis_data.c" />
     <ClCompile Include="src\async_serial.cpp" />
     <ClCompile Include="src\buffered_async_serial.cpp" />
   </ItemGroup>
