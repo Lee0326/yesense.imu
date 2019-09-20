@@ -383,6 +383,7 @@ void AsyncSerial::open(const std::string& devname, unsigned int baud_rate,
         case 57600:speed= B57600; break;
         case 115200:speed= B115200; break;
         case 230400:speed= B230400; break;
+				case 460800:speed = B460800; break;
         default:
         {
             ::close(pimpl->fd);

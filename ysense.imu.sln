@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "display.ysense.imu", "display.ysense.imu\display.ysense.imu.vcxproj", "{3EFEA6A1-B9AB-407D-AB5A-17155AEBF426}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B996F107-F8B9-4108-85E4-8F7DB557E25C} = {B996F107-F8B9-4108-85E4-8F7DB557E25C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drivers.yesense.serial.port", "drivers.yesense.imu\drivers.yesense.serial.port.vcxproj", "{B996F107-F8B9-4108-85E4-8F7DB557E25C}"
 EndProject

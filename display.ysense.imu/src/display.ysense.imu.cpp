@@ -2,10 +2,14 @@
 //
 
 #include <iostream>
+#include "yesense.imu.hpp"
 
 int main()
 {
     std::cout << "Hello World!\n";
+		drivers::Yesense IMU_DATA("COM4", 460800);
+		IMU_DATA.AsyncStart();
+		auto data = IMU_DATA.Pop();
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单

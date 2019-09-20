@@ -19,12 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\analysis_data.h" />
     <ClInclude Include="include\async_serial.h" />
     <ClInclude Include="include\buffered_async_serial.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\analysis_data.c" />
     <ClCompile Include="src\async_serial.cpp" />
     <ClCompile Include="src\buffered_async_serial.cpp" />
   </ItemGroup>
@@ -99,7 +97,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\02_CodeRepos\vcpkg\installed\x86-windows\include;include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Github\vcpkg\installed\x86-windows\include;include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

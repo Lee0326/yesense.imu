@@ -1,6 +1,10 @@
+#ifndef YESENSE_IMU_DISPLAY_IMU_H_
+#define YESENSE_IMU_DISPLAY_IMU_H_
+
 #include <boost/date_time.hpp>
 
 using namespace boost::posix_time;
+using namespace boost::gregorian;
 
 class Accelerator {
 public:
@@ -60,43 +64,33 @@ private:
 	float q0_, q1_, q2_, q3_;
 };
 
-class Position {
-public:
-	Position(float latitude, float longitude, float altitude)
-		: latitude_(latitude), longitude_(longitude), altitude_(altitude) { }
-	float GetLatitude()  { return latitude_; }
-	float GetLongitude() { return longitude_; }
-	float GetAltitude()  { return altitude_; }
-	void SetLatitude(float value)  { latitude_ = value; }
-	void SetLongitude(float value) { longitude_ = value; }
-	void SetAltitude(float value)  { altitude_ = value; }
-private:
-	float latitude_, longitude_, altitude_;
-};
-
-class Velocity {
-public:
-	Velocity(float Ve, float Vn, float Vu)
-		: Ve_(Ve), Vn_(Vn), Vu_(Vu) { }
-	float GetVe() { return Ve_; }
-	float GetVn() { return Vn_; }
-	float GetVu() { return Vu_; }
-	void SetVe(float value) { Ve_ = value; }
-	void SetVn(float value) { Vn_ = value; }
-	void SetVu(float value) { Vu_ = value; }
-private:
-	float Ve_, Vn_, Vu_;
-};
-
-
 class IMU{
-	Accelerator acc;
-	AngularVelocity aglv; 
-	EulerAngle elag;
-	Quaternion qt;
-	ptime UTC;
-	time_duration sample_td;
-	time_duration sync_td;
-	Position pos;
-	Velocity vel;
+public:
+	IMU(int ax, int ay, int az, 
+		int wx, int wy, int wz,
+		int pitch, int roll, int yaw,
+		std::string stime, long sample_td, long sync_td,
+		int q0, int q1, int q2, int q3) :
+	acc_(scale*ax,scale*ay,scale*az), aglv_(scale*wx, scale*wy, scale*wz),elag_(scale*pitch,scale*roll,scale*yaw),
+	sample_td_(sample_td), sync_td_(sync_td),
+	qt_(scale*q0,scale*q1,scale*q2,scale*q3)
+	{
+		UTC_ = time_from_string(stime);
+	};
+	Accelerator getAcc()
+	{
+		return acc_;
+	}
+
+private:
+	float scale = 0.000001;
+	Accelerator acc_;
+	AngularVelocity aglv_;
+	EulerAngle elag_;
+	Quaternion qt_;
+	ptime UTC_;
+	long sample_td_;
+	long sync_td_;
 };
+
+#endif

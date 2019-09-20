@@ -91,10 +91,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\Github\vcpkg\installed\x86-windows\include;D:\02_CodeRepos\yesense.imu\display.ysense.imu\include;..\drivers.yesense.imu\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_date_time-vc140-mt-gd.lib;D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_filesystem-vc140-mt-gd.lib;D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_chrono-vc140-mt-gd.lib;D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_context-vc140-mt-gd.lib;D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_exception-vc140-mt-gd.lib;D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_system-vc140-mt-gd.lib;D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_thread-vc140-mt-gd.lib;D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_timer-vc140-mt-gd.lib;D:\Github\vcpkg\installed\x86-windows\debug\lib\glog.lib;D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_serialization-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -106,11 +108,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\02_CodeRepos\vcpkg\installed\x86-windows\include;../drivers.yesense.imu/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Github\vcpkg\installed\x86-windows\include;D:\02_CodeRepos\yesense.imu\display.ysense.imu\include;..\drivers.yesense.imu\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_filesystem-vc140-mt-gd.lib;D:\Github\vcpkg\installed\x86-windows\debug\lib\boost_date_time-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -158,6 +161,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\display.ysense.imu.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\drivers.yesense.imu\drivers.yesense.serial.port.vcxproj">
+      <Project>{b996f107-f8b9-4108-85e4-8f7db557e25c}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

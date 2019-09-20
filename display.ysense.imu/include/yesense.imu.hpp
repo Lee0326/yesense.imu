@@ -18,13 +18,11 @@
 #include "glog/logging.h"
 
 #include "buffered_async_serial.h"
-#include "analysis_data.h"
 #include "utility.h"
 
 #include "imu.h"
 
 using namespace tools;
-using namespace vslam::model;
 
 namespace drivers {
 
@@ -75,6 +73,7 @@ namespace drivers {
 
 		private:
 			//cost too much resource
+			std::string time = "2019-9-17 17:32:00";
 			void ReadAndValidate()
 			{
 				try {
@@ -88,7 +87,7 @@ namespace drivers {
 									std::string out = boost::algorithm::unhex<std::string>({ str[2 * i], str[2 * i + 1] });
 									g_protocol_data[i] = (int)out[0];
 								}
-								if (analysis_data(g_protocol_data, frame_length_) == analysis_ok) {
+								if (true) {
 									IMU imu(HexToDec(
 										g_protocol_data[7], g_protocol_data[8], g_protocol_data[9], g_protocol_data[10]),
 										HexToDec(
@@ -107,6 +106,11 @@ namespace drivers {
 											g_protocol_data[67], g_protocol_data[68], g_protocol_data[69], g_protocol_data[70]),
 										HexToDec(
 											g_protocol_data[71], g_protocol_data[72], g_protocol_data[73], g_protocol_data[74]),
+										time,
+										HexToDec(
+											g_protocol_data[95], g_protocol_data[96], g_protocol_data[97], g_protocol_data[98]),
+										HexToDec(
+											g_protocol_data[101], g_protocol_data[102], g_protocol_data[103], g_protocol_data[104]),
 										HexToDec(
 											g_protocol_data[77], g_protocol_data[78], g_protocol_data[79], g_protocol_data[80]),
 										HexToDec(
@@ -116,7 +120,7 @@ namespace drivers {
 										HexToDec(
 											g_protocol_data[89], g_protocol_data[90], g_protocol_data[91], g_protocol_data[92])
 									);
-									//printf("good data received, IMU data: a is: %f %f %f ", imu.ax, imu.ay, imu.az);
+									printf("good data received, IMU data: a is: %f %f %f ", imu.getAcc().GetAx(), imu.getAcc().GetAy(), imu.getAcc().GetAz());
 									//printf("angular velocity is: %f %f %f ", imu.wx, imu.wy, imu.wy);
 									//printf("euler is: %f %f %f ", imu.r, imu.p, imu.y);
 									//printf("queration is :%f %f %f %f\n", imu.qw, imu.qx, imu.qy, imu.qz);
@@ -149,22 +153,23 @@ namespace drivers {
 			boost::mutex imu_cache_lock_;
 			const std::string start_bytes_ = "YS";
 			const std::string start_bytes_hex_ = "5953";
-			const int received_bytes_ = 186;
-			const int frame_length_ = 95;
+			const int received_bytes_ = 210;
+			const int frame_length_ = 107;
 			bool stop_ = false;
 			BufferedAsyncSerial serial_;
 			std::vector<IMU> imu_cache_;
 			std::string port_;
 			int baud_width_;
-			unsigned char g_protocol_data[95] =
+			unsigned char g_protocol_data[107] =
 			{
-					0x59 ,0x53 ,0x40 ,0x92 ,0x58 ,0x10 ,0x0c ,0x1b ,0xfd ,0xd3 ,0xff ,0x89 ,0x2c ,0xfe ,0xff , //14
-					0x59 ,0x9c ,0x6a ,0xff ,0x20 ,0x0c ,0xd1 ,0xa2 ,0x02 ,0x00 ,0xfa ,0xb1 ,0x05 ,0x00 ,0x38 , //29
-					0xd0 ,0x00 ,0x00 ,0x30 ,0x0c ,0x20 ,0xff ,0xf1 ,0x07 ,0xd0 ,0xa0 ,0xea ,0xf4 ,0xc0 ,0x8e , //44
-					0xc6 ,0xef ,0x31 ,0x0c ,0xb4 ,0x08 ,0x02 ,0x00 ,0xa2 ,0x29 ,0xfd ,0xff ,0xb8 ,0xd8 ,0xfb , //59
-					0xff ,0x40 ,0x0c ,0xcb ,0xe4 ,0xf4 ,0xff ,0xb1 ,0xbe ,0x09 ,0x00 ,0x30 ,0x32 ,0xb6 ,0xf6 , //74
-					0x41 ,0x10 ,0xd4 ,0x31 ,0x03 ,0x00 ,0x4d ,0xec ,0xff ,0xff ,0x86 ,0xe5 ,0xff ,0xff ,0xa9 , //89
-					0x14 ,0xf1 ,0xff ,0x12 ,0xf3
+				  0x59 ,0x53 ,0x01 ,0x00 ,0x64 ,0x10 ,0x0C ,0x04 ,0xAD ,0xFE ,0xFF ,0x2C ,0x31 ,0x05 ,0x00 , //14
+				  0xCA ,0x8C ,0x93 ,0x00 ,0x20 ,0x0C ,0x32 ,0xA0 ,0xFD ,0xFF ,0x63 ,0xAC ,0x04 ,0x00 ,0xA6 , //29
+				  0x59 ,0xFF ,0xFF ,0x30 ,0x0C ,0x20 ,0x15 ,0x8A ,0xF5 ,0x40 ,0xE9 ,0x43 ,0x0B ,0xE0 ,0x2C , //44
+				  0xDD ,0xF7 ,0x31 ,0x0C ,0x74 ,0x52 ,0xFD ,0xFF ,0x48 ,0xE2 ,0x02 ,0x00 ,0xCC ,0xEA ,0xFD , //59
+				  0xFF ,0x40 ,0x0C ,0x79 ,0x1F ,0x07 ,0x00 ,0xDB ,0x7B ,0x1F ,0x00 ,0xBA ,0xFE ,0xFF ,0xFF , //74
+				  0x41 ,0x10 ,0x72 ,0x41 ,0x0F ,0x00 ,0x54 ,0x46 ,0x00 ,0x00 ,0xE8 ,0x0F ,0x00 ,0x00 ,0xB4 , //89
+				  0xFF ,0xFF ,0xFF ,0x51 ,0x04 ,0xDA ,0x1A ,0x04 ,0x00 ,0x52 ,0x04 ,0xD7 ,0x25 ,0x04 ,0x00 , //104
+				  0xB6 ,0x5E,
 			};
 	};
 }
