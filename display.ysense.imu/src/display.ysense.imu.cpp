@@ -7,7 +7,7 @@
 int main()
 {
     std::cout << "Hello World!\n";
-		drivers::Yesense IMU_DATA("COM4", 460800);
+		drivers::Yesense IMU_DATA("COM3", 460800);
 		IMU_DATA.AsyncStart();
 		auto data = IMU_DATA.Pop();
 }

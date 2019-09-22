@@ -29,7 +29,7 @@ namespace drivers {
 	class Yesense : boost::noncopyable
 	{
 		public:
-			Yesense() = delete;
+			// Yesense() = delete;
 			Yesense(const std::string name, const int speed) :
 				port_(name), baud_width_(speed)
 			{	
